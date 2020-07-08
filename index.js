@@ -1,6 +1,3 @@
-/*module.exports = () => {
-  // ...
-};*/
 const fs = require('fs');
 //const mdLinks = require('md-links');
 const mdLinks = (path)=>{
@@ -33,7 +30,7 @@ fs.readFile(path, 'utf8', (error,data)=>{
 }
 mdLinks('/home/laboratoria/Área de Trabalho/SAP004-md-links/README.md')
 
-
+module.exports = mdLinks;
 
 
 /*const aPromise = new Promise((resolve, reject) => {

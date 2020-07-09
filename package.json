@@ -9,7 +9,6 @@
   "scripts": {
     "test": "jest --watchAll --coverage ",
     "eslint": "eslint --ext .js"
-    //"test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -24,14 +23,15 @@
   "devDependencies": {
     "jest": "^26.1.0",
     "nodemon": "^2.0.4",
-  /*  "babel-jest": "^26.1.0",
-    "eslint": "^7.3.1",
-    "fs": "0.0.1-security"*/
-    
+    "eslint": "^7.3.1"
   },
   "dependencies": {
     "babel-jest": "^26.1.0",
-    "eslint": "^7.3.1",
-    "fs": "0.0.1-security"
+    "commander": "^5.1.0",
+    "fetch": "^1.1.0",
+    "fs": "0.0.1-security",
+    "node": "^14.5.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
   }
 }

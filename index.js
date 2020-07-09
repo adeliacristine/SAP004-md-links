@@ -1,75 +1,91 @@
 const fs = require('fs');
-//const mdLinks = require('md-links');
-const mdLinks = (path)=>{
-  arrayMdLinks =[];
+const path = require('path');
+const http = require('http');
+const https = require ('https');
+
+
+const mdLinks = (path, options )=>{
+ let arrayMdLinks = [];
   object =[];
-return new Promise((resolve, reject)=>{
+return new Promise ((resolve, reject)=>{
 fs.readFile(path, 'utf8', (error,data)=>{
-  if (error){
+ 
+  if (data) {
+  arrayMdLinks = data.match(/\[([^\]]*)\]\((http[s]?:[^\)]*)\)/gm),
+  arrayMdLinks.forEach(item => {
+    const text = item.match(/\[([^\]]*)\]/)[1];
+    const href = item.match(/\((http[s]?:[^\)]*)\)/)[1];
+    object.push({
+      text,
+      href,
+      file:path 
+  }) 
+})
+
+
+  if (options && options.validate){
+    resolve((object.map(result => {
+      return validateOp(result)
+    })))
+
+  }else{
+  resolve(object)
+}
+}else{
     reject(`erro de leitura de arquivo ${error}`)
     console.log(`Error ${error}`)
-  }else{ 
-    arrayMdLinks = data.match(/\[([^\]]*)\]\((http[s]?:[^\)]*)\)/gm); //(/\[(.*?)\]\(http[s]?:\/\/(.*)/gm);
-            arrayMdLinks.forEach(item => {
-              object.push({
-                text: `${item.match(/\[([^\]]*)\]/gm)}` ,  //)(/\[(.*?)\]/g)}`
-                href: `${item.match(/\((http[s]?:[^\)]*)\)/gm)}`, //(/http[s]?:\/\/(.*)/gm)}` ,
-                file: path               
-            })
-            //console.log(`${item.match(/\[(.*?)\]/g)}`);
-            //console.log(`${item.match(/http[s]?:\/\/(.*)/gm)}`);
-            //console.log(path);
-            //console.log(item);
+}
+})
+})
+}
+
+const validateOp = (elem) =>{
+  return new Promise((resolve, reject )=>{
+    if(elem.href.indexOf('https:')===0){
+      https.get(elem.href,(res)  => {
+         let values = {
+           code: res.statusCode,
+           message: res.statusMessage,
+         };
+           elem.validate=values;
+           resolve(elem)
+       }).on("error",(e) => {
+       })
+    } else if (elem.href.indexOf('http:')===0){
+      http.get(elem.href,(res)  =>{
+        let values = {
+          code: res.statusCode,
+          message: res.statusMessage,
+        };
+          elem.validate=values;
+          resolve(elem)
+       }).on("error",(e) => {
+         console.log(e)
+       })
+    }
+    
   })
-  //console.log(arrayMdLinks);
-  resolve(object)
-  console.log(object);
 }
-});
-});
-}
-mdLinks('/home/laboratoria/Área de Trabalho/SAP004-md-links/README.md')
+const options ={validate:true}
+mdLinks('/home/laboratoria/Área de Trabalho/SAP004-md-links/README.md',options ).then((a)=>{
 
-module.exports = mdLinks;
-
-
-/*const aPromise = new Promise((resolve, reject) => {
-const aNumber = 37
-resolve(aNumber)
-reject(aNumber)
+  if (options && options.validate){
+    a.map(ag=>{
+      ag.then(lili=>{
+        console.log(lili)
+      })
+    })
+  }else{
+  console.log(a)
+  }
 })
 
-aPromise
-.then(value => value)
-.then ((value)=>{
-  console.log(value)
-})
-.catch((rejectValue)=>{
-  console.log({rejectValue})
-})*/
-
-/*const mdLinks = require("md-links");
-links=[];
-fs.readFile(mdLinks, "utf8", function(error, text)  {
-  .then(links => {
-    => [{ href:, 
-        texto:text, 
-        file:mdLinks }]
-        console.log(texto);
-        console.log(mdLinks);
-
- })
- .catch(
-   console.log(error)
-   )
-
-mdLinks('/home/laboratoria/Área de Trabalho/SAP004-md-links/files/teste.md')
-;*/
 
 
-//const fs = require('fs'),
 
-//path = '/home/laboratoria/Área de Trabalho/SAP004-md-links/'
+
+//module.exports = mdLink;
+
 
 
 /*let files=[]
@@ -123,11 +139,4 @@ fs.stat(path, (err, stats) => {
     } 
 } 
 else
-    throw err;  
-});*/
-
-      
-
-
-
-
+    throw err;  */

@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "## Índice",
   "main": "index.js",
+  "bin": {
+    "md-links": "./cli.js"
+  },
   "directories": {
     "test": "test"
   },
@@ -26,12 +29,14 @@
     "eslint": "^7.3.1"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "babel-jest": "^26.1.0",
     "commander": "^5.1.0",
     "fetch": "^1.1.0",
     "fs": "0.0.1-security",
     "node": "^14.5.0",
     "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "yargs": "^13.2.4"
   }
 }

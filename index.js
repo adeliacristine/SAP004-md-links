@@ -84,7 +84,7 @@ mdLinks('/home/laboratoria/Área de Trabalho/SAP004-md-links/README.md',options 
 
 
 
-//module.exports = mdLink;
+module.exports = mdLinks;
 
 
 

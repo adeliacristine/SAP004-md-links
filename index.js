@@ -3,8 +3,22 @@ const path = require('path');
 const http = require('http');
 const https = require ('https');
 
+const mdLinks = (path, options ) => {
+ // console.log('oi');
+  return new Promise ((resolve, reject)=>{
+    fs.stat(path, (error, stats) => {
+      if (error) reject('Não foi encontrado nenhum arquivo com o nome fornecido');
+      else if (stats.isDirectory()) {
+        reject('Não é possivel ler esse diretorio, favor forneça um camoinho valido');
+      } else if (stats.isFile()) {
+        resolve(lerArquivo(path, options));
+      }
+    });
+  });
+}
+module.exports = mdLinks;
 
-const mdLinks = (path, options )=>{
+const lerArquivo = (path, options )=>{
  let arrayMdLinks = [];
   object =[];
 return new Promise ((resolve, reject)=>{
@@ -22,22 +36,38 @@ fs.readFile(path, 'utf8', (error,data)=>{
   }) 
 })
 
-
-  if (options && options.validate){
-    resolve((object.map(result => {
-      return validateOp(result)
-    })))
-
-  }else{
+if (options && options.validate){
+  return resolve(Promise.all(object.map(result => {
+    return validateOp(result)
+  }
+  )))
+  
+}else{
   resolve(object)
+  console.log('casa');
 }
 }else{
     reject(`erro de leitura de arquivo ${error}`)
-    console.log(`Error ${error}`)
+    //console.log(`Error ${error}`)
 }
 })
 })
 }
+
+/*const lerDiretorio = (path, options) =>{
+  let arrayDir = [];
+  objectDir =[];
+  return new Promise ((resolve, reject)=>{
+fs.readdir(path,"utf-8", (error,data)=> {
+  if (error){
+    reject(`Error ${error}`)
+    //console.log(`Error ${error}`)
+  }else{
+    data.forEach(file => { lerArquivo(path,options)})
+  }
+})
+  })
+}*/
 
 const validateOp = (elem) =>{
   return new Promise((resolve, reject )=>{
@@ -66,10 +96,10 @@ const validateOp = (elem) =>{
     
   })
 }
-const options ={validate:true}
-mdLinks('/home/laboratoria/Área de Trabalho/SAP004-md-links/README.md',options ).then((a)=>{
-
-  if (options && options.validate){
+//const options ={validate:true}
+//mdLinks('/home/laboratoria/Área de Trabalho/SAP004-md-links/README.md',options ).then((a)=>{
+  //'/home/laboratoria/Área de Trabalho/SAP004-md-links/README.md'
+  /*if (options && options.validate){
     a.map(ag=>{
       ag.then(lili=>{
         console.log(lili)
@@ -78,13 +108,9 @@ mdLinks('/home/laboratoria/Área de Trabalho/SAP004-md-links/README.md',options 
   }else{
   console.log(a)
   }
-})
+})*/
 
-
-
-
-
-module.exports = mdLinks;
+//module.exports = mdLinks;
 
 
 

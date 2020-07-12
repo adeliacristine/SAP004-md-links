@@ -19,7 +19,7 @@ Uma vez que o caminho correto for passado, todos os links que forem encontrados 
 Para realizar a isntalação basta digital em seu terminal o seguinte comando:
 
 ```sh
-npm instal --global https://github.com/adeliacristine/SAP004-md-links
+npm install https://github.com/adeliacristine/SAP004-md-links
 ```
 ## Ultilizando a biblioteca
 

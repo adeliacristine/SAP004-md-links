@@ -6,7 +6,7 @@ const mdLinks = (file, options) => {
   return new Promise((resolve, reject) => {
     fs.stat(file, (error, stats) => {
       if(error){
-        reject('Não foi encontrado nenhum arquivo com o nome fornecido'+ error);
+        reject('Não foi encontrado nenhum arquivo com o nome fornecido');
       }else if (stats.isDirectory()) {
         resolve(getDir(file, options));
       } else if (stats.isFile()) {

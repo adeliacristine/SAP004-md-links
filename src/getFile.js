@@ -2,8 +2,6 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const path = require('path');
-//const stats = require("./stats.js");
-
 
 const getFile = (file, options) => {
 	let arrayMdLinks = [];
@@ -22,17 +20,19 @@ const getFile = (file, options) => {
 							href,
 							file: pathFile
 						})
+
 					})
+
 
 				if (options && options.validate) {
 					return resolve(Promise.all(object.map(result => {
 						return validateOp(result)
 					}
 					)))
-
 				} else {
 					resolve(object)
 				}
+				
 				} else {
 				reject(`erro de leitura de arquivo ${error}`)
 			}

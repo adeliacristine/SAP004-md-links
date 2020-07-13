@@ -10,7 +10,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --watchAll --coverage ",
+    "test": "jest --verbose --coverage",
     "eslint": "eslint --ext .js"
   },
   "repository": {
@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/adeliacristine/SAP004-md-links#readme",
   "devDependencies": {
+    "eslint": "^7.3.1",
     "jest": "^26.1.0",
-    "nodemon": "^2.0.4",
-    "eslint": "^7.3.1"
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
     "axios": "^0.19.2",

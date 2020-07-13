@@ -10,8 +10,7 @@ array.forEach(item => {
 	const allHref = href.length;
 	object.push({
 		total: allHref,
-		Quebrado: pathFile,
-		unicos:c
+		
 	})
 })
 
